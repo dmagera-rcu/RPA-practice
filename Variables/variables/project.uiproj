@@ -1,0 +1,6 @@
+{
+  "Name": "variables",
+  "ProjectType": "Process",
+  "Description": "learning about variables, constants and arguments",
+  "MainFile": "Main.xaml"
+}
