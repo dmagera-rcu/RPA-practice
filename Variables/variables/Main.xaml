@@ -75,10 +75,14 @@
       <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>variables.Core</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.DependencyModel</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="802,1631" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="816,1808" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
+      <Variable x:TypeArguments="x:Double" Name="main_YearlyIncome" />
+      <Variable x:TypeArguments="x:Double" Name="main_HourlyRate" />
       <Variable x:TypeArguments="x:String" Name="FullName" />
       <Variable x:TypeArguments="x:Int32" Name="BirthYear" />
       <Variable x:TypeArguments="x:Int32" Name="Age" />
@@ -110,6 +114,12 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InputDialog>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="CalculateIncome - Invoke Workflow File (CalculateIncome.xaml)" sap:VirtualizedContainerService.HintSize="450,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="CalculateIncome.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="x:Double" x:Key="out_HourlyRate">[main_HourlyRate]</OutArgument>
+        <OutArgument x:TypeArguments="x:Double" x:Key="out_YearlyIncome">[main_YearlyIncome]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
     <Assign sap2010:Annotation.AnnotationText="Calculates the age by converting everything into a int then subtracting the birth year from the current year" sap:VirtualizedContainerService.HintSize="450,236" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[Age]</OutArgument>
@@ -141,7 +151,7 @@
         <OutArgument x:TypeArguments="x:String">[UserIntro]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[$"Hi! I am {FirstLetter}, {Age} years old."]</InArgument>
+        <InArgument x:TypeArguments="x:String">[$"Hi! I am {FirstLetter}, {Age} years old and I make {main_YearlyIncome} per year which is equivalent to {main_HourlyRate} per hour. Thanks!"]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Output the user's first letter of their fullname and their current age" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="450,168" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[UserIntro]">
